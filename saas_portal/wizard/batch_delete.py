@@ -10,6 +10,6 @@ class SaasBatchDeleteWizard(models.TransientModel):
     client_ids = fields.Many2many('saas_portal.client', 'saas_batch_delete_clients_rel', 'cid', 'did',
                                   readonly=True, default=_default_client_ids)
 
-    @api.multi
+    
     def delete_from_server(self):
         self.client_ids._delete_database_server()

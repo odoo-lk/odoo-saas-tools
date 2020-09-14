@@ -43,7 +43,7 @@ class SaasRoute53Zone(models.Model):
                        })
         return zone
 
-    @api.multi
+    
     def unlink(self):
         # let's delete zone if it was created automatically
         for zone in self:
@@ -99,7 +99,7 @@ class SaasPortalServer(models.Model):
             server._update_zone(server.name, value=server.ip_address)
         return server
 
-    @api.multi
+    
     def write(self, vals):
         super(SaasPortalServer, self).write(vals)
         for server in self:
@@ -108,7 +108,7 @@ class SaasPortalServer(models.Model):
                     self._update_zone(server.name, value=server.ip_address, action='update')
         return True
 
-    @api.multi
+    
     def unlink(self):
         for server in self:
             if server.aws_hosted_zone_id:

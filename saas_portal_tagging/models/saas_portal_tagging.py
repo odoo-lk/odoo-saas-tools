@@ -4,7 +4,7 @@ from odoo.exceptions import Warning
 
 class SaasPortalCategory(models.Model):
 
-    @api.multi
+    
     def name_get(self):
         res = []
         for record in self:
@@ -43,7 +43,7 @@ class SaasPortalCategory(models.Model):
     )
 
     @api.constrains('parent_id')
-    @api.multi
+    
     def _check_recursion(self):
         level = 100
         cr = self.env.cr

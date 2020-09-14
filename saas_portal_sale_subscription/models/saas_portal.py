@@ -5,7 +5,7 @@ from odoo import api, fields, models, _
 class SaasPortalPlan(models.Model):
     _inherit = 'saas_portal.plan'
 
-    @api.multi
+    
     def create_new_database(self, **kwargs):
         '''
         If there is an invoice line for the customer and the plan that has no
@@ -46,7 +46,7 @@ class SaasPortalClient(models.Model):
     trial = fields.Boolean(
         'Trial', compute='_compute_period_paid', store=True)
 
-    @api.multi
+    
     @api.depends('create_date', 'period_paid', 'subscription_log_ids',
                  'subscription_start', 'trial')
     def _compute_expiration(self):
@@ -62,7 +62,7 @@ class SaasPortalClient(models.Model):
                 expiration += timedelta(hours=record.plan_id.expiration)
             record.expiration_datetime = fields.Datetime.to_string(expiration)
 
-    @api.multi
+    
     @api.depends('invoice_line_ids.invoice_id.state')
     def _compute_period_paid(self):
         for client in self:
@@ -74,7 +74,7 @@ class SaasPortalClient(models.Model):
             client.period_paid = period_paid
             client.trial = period_paid <= 0
 
-    @api.multi
+    
     def get_upgrade_database_payload(self):
         res = super(SaasPortalClient, self).get_upgrade_database_payload()
 

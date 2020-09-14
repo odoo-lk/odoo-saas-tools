@@ -30,7 +30,7 @@ class SaasConfig(models.TransientModel):
     param_ids = fields.One2many('saas.config.param', 'config_id', 'Parameters')
     description = fields.Text('Result')
 
-    @api.multi
+    
     def execute_action(self):
         res = False
         method = '%s_database' % self.action
@@ -38,11 +38,11 @@ class SaasConfig(models.TransientModel):
             res = getattr(self, method)()
         return res
 
-    @api.multi
+    
     def delete_database(self):
         return self.database_ids.delete_database()
 
-    @api.multi
+    
     def upgrade_database(self):
         self.ensure_one()
         obj = self[0]
@@ -163,7 +163,7 @@ class SaasPortalCreateClient(models.TransientModel):
         if self.user_id:
             self.partner_id = self.user_id.partner_id
 
-    @api.multi
+    
     def apply(self):
         self.ensure_one()
         plan_id = self.plan_id
@@ -217,7 +217,7 @@ class SaasPortalDuplicateClient(models.TransientModel):
     partner_id = fields.Many2one(
         'res.partner', string='Partner', default=_default_partner)
 
-    @api.multi
+    
     def apply(self):
         self.ensure_one()
         res = self.client_id.duplicate_database(
@@ -245,7 +245,7 @@ class SaasPortalRenameDatabase(models.TransientModel):
         'saas_portal.client', string='Base Client',
         readonly=True, default=_default_client_id)
 
-    @api.multi
+    
     def apply(self):
         self.ensure_one()
         self.client_id.rename_database(new_dbname=self.name)
