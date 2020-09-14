@@ -26,7 +26,6 @@ class OauthApplication(models.Model):
         ('client_id_uniq', 'unique (client_id)', 'client_id should be unique!'),
     ]
 
-    @api.multi
     def _get_access_token(self, user_id=None, create=False):
         self.ensure_one()
         if not user_id:
